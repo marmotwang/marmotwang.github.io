@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-03-28T05:17:05.793Z</updated>
+  <updated>2018-01-23T09:03:35.463Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/03/28/kNN/"/>
+    <id>http://yoursite.com/2018/03/28/kNN/</id>
+    <published>2018-03-28T06:18:05.611Z</published>
+    <updated>2018-01-23T09:03:35.463Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="k-近邻算法（kNN"><a href="#k-近邻算法（kNN" class="headerlink" title="k-近邻算法（kNN)"></a>k-近邻算法（kNN)</h1><p>优点：精度高、对异常值不敏感、无数据输入假定。</p><p>缺点：计算复杂度高、空间复杂度高。</p><p>适用数据范围：数值型和标称型。 </p><p>工作原理：存在一个样本数据集合，也称作训练样本集，并且样本集中每个数据都有标签，即知道样本集中每一数据与所属分类的对应关系。输入没有标签的新数据后，将新数据的每个特征与样本集中数据对应的特征进行比较，然后算法提取样本集中特征最相似数据的分类标签。一般来说，我们只选择样本数据集中前k个最相似数据，这就是k-近邻算法k的出处，通常k是不大于20的整数。最后，选取k个最相似数据中出现次数最多的分类，作为新数据的分类。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDataSet</span><span class="params">()</span>:</span></span><br><span class="line">    group = array([[<span class="number">1.0</span>, <span class="number">1.1</span>], [<span class="number">1.0</span>, <span class="number">1.0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0.1</span>]])</span><br><span class="line">    labels = [<span class="string">'A'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'B'</span>]</span><br><span class="line">    <span class="keyword">return</span> group, labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span><span class="params">(inX,dataSet,labels,k)</span>:</span>                  <span class="comment">#inX是你要输入的要分类的“坐标”，dataSet是上面createDataSet的array，就是已经有的，分类过的坐标，label是相应分类的标签，k是KNN，k近邻里面的k</span></span><br><span class="line">    dataSetSize=dataSet.shape[<span class="number">0</span>]                     <span class="comment">#dataSetSize是sataSet的行数，用上面的举例就是4行</span></span><br><span class="line">    diffMat=tile(inX,(dataSetSize,<span class="number">1</span>))-dataSet         <span class="comment">#前面用tile，把一行inX变成4行一模一样的（tile有重复的功能，dataSetSize是重复4遍，后面的1保证重复完了是4行，而不是一行里有四个一样的），然后再减去dataSet，是为了求两点的距离，先要坐标相减，这个就是坐标相减</span></span><br><span class="line">    sqDiffMat=diffMat**<span class="number">2</span>                              <span class="comment">#上一行得到了坐标相减，然后这里要(x1-x2)^2，要求乘方</span></span><br><span class="line">    sqDistances=sqDiffMat.sum(axis=<span class="number">1</span>)                 <span class="comment">#axis=1是列相加，，这样得到了(x1-x2)^2+(y1-y2)^2</span></span><br><span class="line">    distances=sqDistances**<span class="number">0.5</span>                        <span class="comment">#开根号，这个之后才是距离</span></span><br><span class="line">    sortedDistIndicies=distances.argsort()            <span class="comment">#argsort是排序，将元素按照由小到大的顺序返回下标，比如([3,1,2]),它返回的就是([1,2,0])</span></span><br><span class="line">    classCount=&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        voteIlabel=labels[sortedDistIndicies[i]]</span><br><span class="line">        classCount[voteIlabel]=classCount.get(voteIlabel,<span class="number">0</span>)+<span class="number">1</span>            <span class="comment">#get是取字典里的元素，如果之前这个voteIlabel是有的，那么就返回字典里这个voteIlabel里的值，如果没有就返回0（后面写的），这行代码的意思就是算离目标点距离最近的k个点的类别，这个点是哪个类别哪个类别就加1</span></span><br><span class="line">    soredClassCount=sorted(classCount.iteritems(),key=operator.itemgetter(<span class="number">1</span>),reverse=<span class="keyword">True</span>)         <span class="comment">#key=operator.itemgetter(1)的意思是按照字典里的第一个排序，&#123;A:1,B:2&#125;,要按照第1个（AB是第0个），即‘1’‘2’排序。reverse=True是降序排序</span></span><br><span class="line">    <span class="keyword">return</span> soredClassCount[<span class="number">0</span>][<span class="number">0</span>]             <span class="comment">#返回类别最多的类别</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;k-近邻算法（kNN&quot;&gt;&lt;a href=&quot;#k-近邻算法（kNN&quot; class=&quot;headerlink&quot; title=&quot;k-近邻算法（kNN)&quot;&gt;&lt;/a&gt;k-近邻算法（kNN)&lt;/h1&gt;&lt;p&gt;优点：精度高、对异常值不敏感、无数据输入假定。&lt;/p&gt;
+&lt;p&gt;缺点：计算
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
