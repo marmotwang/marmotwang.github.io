@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-17T16:58:15.550Z</updated>
+  <updated>2019-02-27T01:18:26.982Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,56 +17,110 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>踏踏实实，别浮躁，慢慢来</title>
-    <link href="http://yoursite.com/2018/04/18/%E8%B8%8F%E8%B8%8F%E5%AE%9E%E5%AE%9E%EF%BC%8C%E5%88%AB%E6%B5%AE%E8%BA%81%EF%BC%8C%E6%85%A2%E6%85%A2%E6%9D%A5/"/>
-    <id>http://yoursite.com/2018/04/18/踏踏实实，别浮躁，慢慢来/</id>
-    <published>2018-04-17T16:31:59.000Z</published>
-    <updated>2018-04-17T16:58:15.550Z</updated>
+    <title>使用k近邻算法改善约会网站配对结果</title>
+    <link href="http://yoursite.com/2019/02/26/%E4%BD%BF%E7%94%A8k%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E5%96%84%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E9%85%8D%E5%AF%B9%E7%BB%93%E6%9E%9C/"/>
+    <id>http://yoursite.com/2019/02/26/使用k近邻算法改善约会网站配对结果/</id>
+    <published>2019-02-26T14:16:11.000Z</published>
+    <updated>2019-02-27T01:18:26.982Z</updated>
     
-    <content type="html"><![CDATA[<p> 一直都想给自己的小乌龟起个名字，现在决定了，也给他起个名字叫心猿意马。这个名字出处源于《军师联盟》司马懿给他的乌龟就叫心猿意马。</p><p>这个词是个成语嘛，<strong>形容人的心思流荡散乱，如猿马之难以控制</strong>。</p><p>不得不说，我现在就是这个情况，我特别欣赏我的心猿意马，能趴在那里不动呆一天，顶多我看他的时候露出头来看看我。我呢，心思不定，什么都想干，但浮躁，又什么都干不好，还懒，很多事情也就是想想，没有动手去做。</p><p>之前刚开学的时候，我一直都是自己做饭，那段时间状态最好吧，早上早起，晚上早睡，白天认认真真听讲，平时作业能自己独立完成，还能单独拿出时间来学点别的，或者玩点别的。但是也就没持续的了一周吧，特别是腿伤了以后，在家躺了一周。我<strong>有网，有外卖，有独立封闭的空间</strong>。这一周我一度认为自己已经废了。</p><p><strong>我甚至一度指望着那60万狗狗币翻倍来让我暴富。</strong> 我常常希望自己能成为一名科学家，或者是一名工程师，不是像父母那样是一位商人。怎么说呢，懒，真的是让我变得差了很多。</p><p>好在回到学校后，发现跟不上老师进度，自己能拿出时间来补课，开始控制自己的游戏时间。让我知道，自己心里还是有点逼数，还是有想上，想进步的想法的。但是不禁也想问自己：“<strong>留给我的时间，还够么？我还有退路么？</strong>”</p><p>想想真的是有点恐怖，曾经自己也曾打得一手好牌，但是硬生生成了现在这种局面。</p><p>现在想想，给自己立个规矩吧。</p><p>1.早饭还是得自己做，这样午饭也有着落，还便宜能省钱。</p><p>2.每天只能看一次盘，别管他，狗狗币会起飞的。</p><p>3.抓紧把落下的课补上，目前来看，概率论最好补。</p><p>4.把这次唯一收到的生日礼物，键哥送的那四本书读完。</p><p>5.好好准备电赛。</p><p>6.每天早上要吃早饭，还要读圣经。</p><p>我并不是一个基督教抑或是犹太教天主教教徒，但是小学的时候读过圣经的故事还是给我带来很大的启迪，圣经中也确实有很多的道理，值得我去体会。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="使用k-近邻算法改进约会网站的配对结果"><a href="#使用k-近邻算法改进约会网站的配对结果" class="headerlink" title="使用k-近邻算法改进约会网站的配对结果"></a>使用k-近邻算法改进约会网站的配对结果</h1><h2 id="准备数据：从文本文件中解析数据"><a href="#准备数据：从文本文件中解析数据" class="headerlink" title="准备数据：从文本文件中解析数据"></a>准备数据：从文本文件中解析数据</h2><p>将文本记录转换为NumPy的解析程序</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file2matrix</span><span class="params">(filename)</span>:</span></span><br><span class="line">    fr = open(filename)</span><br><span class="line">    arrayOLines = fr.readlines()</span><br><span class="line">    numberOfLines = len(arrayOLines)</span><br><span class="line">    returnMat = zeros((numberOfLines,<span class="number">3</span>)) <span class="comment">#创建行3列的0矩阵</span></span><br><span class="line">    classLabelVector = []</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> arrayOLines:</span><br><span class="line">        line = line.strip() <span class="comment">#截取掉所有回车字符</span></span><br><span class="line">        listFromLine = line.split(<span class="string">'\t'</span>) <span class="comment">#将所得的整行数据切割成一个元素列表。</span></span><br><span class="line">        returnMat[index,:] = listFromLine[<span class="number">0</span>:<span class="number">3</span>]<span class="comment">#选取前三个元素，将他们存储到特征矩阵中</span></span><br><span class="line">        classLabelVector.append(int(listFromLine[<span class="number">-1</span>]))<span class="comment">#将最后一列存储进去</span></span><br><span class="line">        index +=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> returnMat,classLabelVector</span><br></pre></td></tr></table></figure><p>在控制台中输入如下命令：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">reload(kNN)</span><br><span class="line">&lt;module <span class="string">'kNN'</span> <span class="keyword">from</span> <span class="string">'C:\Users\wangz\Desktop\ML_study\kNN\kNN.py'</span>&gt;</span><br><span class="line">datingDataMat,datingLabels = kNN.file2matrix(<span class="string">'datingTestSet2.txt'</span>)</span><br><span class="line">datingDataMat</span><br><span class="line">array([[<span class="number">4.0920000e+04</span>, <span class="number">8.3269760e+00</span>, <span class="number">9.5395200e-01</span>],</span><br><span class="line">       [<span class="number">1.4488000e+04</span>, <span class="number">7.1534690e+00</span>, <span class="number">1.6739040e+00</span>],</span><br><span class="line">       [<span class="number">2.6052000e+04</span>, <span class="number">1.4418710e+00</span>, <span class="number">8.0512400e-01</span>],</span><br><span class="line">       ...,</span><br><span class="line">       [<span class="number">2.6575000e+04</span>, <span class="number">1.0650102e+01</span>, <span class="number">8.6662700e-01</span>],</span><br><span class="line">       [<span class="number">4.8111000e+04</span>, <span class="number">9.1345280e+00</span>, <span class="number">7.2804500e-01</span>],</span><br><span class="line">       [<span class="number">4.3757000e+04</span>, <span class="number">7.8826010e+00</span>, <span class="number">1.3324460e+00</span>]])</span><br><span class="line">datingLabels[<span class="number">0</span>:<span class="number">20</span>]</span><br><span class="line">[<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure><h2 id="分析数据：使用Matplotlib创建散点图"><a href="#分析数据：使用Matplotlib创建散点图" class="headerlink" title="分析数据：使用Matplotlib创建散点图"></a>分析数据：使用Matplotlib创建散点图</h2><p>首先用matplotlib制作原始数据散点图，在控制台输入如下指令：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">ax.scatter(datingDataMat[:,<span class="number">1</span>], datingDataMat[:,<span class="number">2</span>])</span><br><span class="line">&lt;matplotlib.collections.PathCollection object at <span class="number">0x0ED35790</span>&gt;</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><h2 id="准备数据：归一化数值"><a href="#准备数据：归一化数值" class="headerlink" title="准备数据：归一化数值"></a>准备数据：归一化数值</h2><p>通过计算距离的方式，我们发现有些差值对计算结果影响非常大，极有可能影响到计算结果</p><p>通过式子：newValue = (oldValue - min)/(max-min)</p><p>代码如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">autoNorm</span><span class="params">(dataSet)</span>:</span><span class="comment">#归一化数值 利用：newValue = (oldValue-min)/(max-min)</span></span><br><span class="line">    minVals = dataSet.min(<span class="number">0</span>) <span class="comment">#不同行比较得出最小数</span></span><br><span class="line">    maxVals = dataSet.max(<span class="number">0</span>)</span><br><span class="line">    ranges = maxVals - minVals</span><br><span class="line">    normDataSet = zeros(shape(dataSet)) <span class="comment">#建立与样本相同维度的0矩阵</span></span><br><span class="line">    m = dataSet.shape[<span class="number">0</span>]  <span class="comment">#将样本第一维度数赋值给m</span></span><br><span class="line">    normDataSet = dataSet -tile(minVals,(m,<span class="number">1</span>))<span class="comment">#复制成与输入矩阵同样大小的矩阵</span></span><br><span class="line">    normDataSet = normDataSet/tile(ranges,(m,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> normDataSet,ranges,minVals</span><br></pre></td></tr></table></figure><p>控制台输入</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">normMat,ranges,minValues = kNN.autoNorm(datingDataMat)</span><br></pre></td></tr></table></figure><h2 id="测试算法：作为完整程序验证分类器"><a href="#测试算法：作为完整程序验证分类器" class="headerlink" title="测试算法：作为完整程序验证分类器"></a>测试算法：作为完整程序验证分类器</h2><p>代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">datingClassTest</span><span class="params">(hoRatio)</span>:</span></span><br><span class="line">    datingDataMat, datingLabels = file2matrix(<span class="string">'datingTestSet.txt'</span>)</span><br><span class="line">    normMat, ranges, minVals = autoNorm(datingDataMat)</span><br><span class="line">    m = normMat.shape[<span class="number">0</span>]</span><br><span class="line">    numTestVecs = int(m * hoRatio)</span><br><span class="line">    errorCount = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTestVecs):</span><br><span class="line">        classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], <span class="number">3</span>)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"the classifier came back with: %d, the real answer is: %d"</span> %(classifierResult, datingLabels[i])</span><br><span class="line">        <span class="keyword">if</span>(classifierResult != datingLabels[i]):    errorCount += <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"the total error rate is: %f"</span> %(errorCount/float(numTestVecs))</span><br></pre></td></tr></table></figure><h2 id="约会网站预测函数"><a href="#约会网站预测函数" class="headerlink" title="约会网站预测函数"></a>约会网站预测函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classifyPerson</span><span class="params">()</span>:</span></span><br><span class="line">    resultList = [<span class="string">'not at all'</span>,<span class="string">'in small doses'</span>,<span class="string">'in large doses'</span>]</span><br><span class="line">    percentTats = float(raw_input(<span class="string">"percentage of time spend playing video games?"</span>))</span><br><span class="line">    ffMiles = float(raw_input(<span class="string">"frequent filer miles earned per year?"</span>))</span><br><span class="line">    iceCream = float(raw_input(<span class="string">"liters of icream consumed per year?"</span>))</span><br><span class="line">    datingDataMat,datingLabels = file2matrix(<span class="string">'datingTestSet2.txt'</span>)</span><br><span class="line">    normMat,ranges,minVals=autoNorm(datingDataMat)</span><br><span class="line">    inArr = array([ffMiles,percentTats,iceCream])</span><br><span class="line">    classifierResult = classify0((inArr-minVals)/ranges,normMat,datingLabels,<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"You will probably like this person: "</span>,resultList[classifierResult - <span class="number">1</span>]</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt; 一直都想给自己的小乌龟起个名字，现在决定了，也给他起个名字叫心猿意马。这个名字出处源于《军师联盟》司马懿给他的乌龟就叫心猿意马。&lt;/p&gt;
-&lt;p&gt;这个词是个成语嘛，&lt;strong&gt;形容人的心思流荡散乱，如猿马之难以控制&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;不得不说，我现在就是
+        &lt;h1 id=&quot;使用k-近邻算法改进约会网站的配对结果&quot;&gt;&lt;a href=&quot;#使用k-近邻算法改进约会网站的配对结果&quot; class=&quot;headerlink&quot; title=&quot;使用k-近邻算法改进约会网站的配对结果&quot;&gt;&lt;/a&gt;使用k-近邻算法改进约会网站的配对结果&lt;/h1&gt;&lt;h2 i
       
     
     </summary>
     
     
-      <category term="反思" scheme="http://yoursite.com/tags/%E5%8F%8D%E6%80%9D/"/>
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="kNN" scheme="http://yoursite.com/tags/kNN/"/>
+    
+      <category term="ML" scheme="http://yoursite.com/tags/ML/"/>
     
   </entry>
   
   <entry>
-    <title>能够成为废人的我</title>
-    <link href="http://yoursite.com/2018/04/16/%E8%83%BD%E5%A4%9F%E6%88%90%E4%B8%BA%E5%BA%9F%E4%BA%BA%E7%9A%84%E6%88%91/"/>
-    <id>http://yoursite.com/2018/04/16/能够成为废人的我/</id>
-    <published>2018-04-16T06:02:30.000Z</published>
-    <updated>2018-04-16T06:07:52.379Z</updated>
+    <title>k近邻算法</title>
+    <link href="http://yoursite.com/2019/02/26/k%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
+    <id>http://yoursite.com/2019/02/26/k近邻算法/</id>
+    <published>2019-02-26T14:14:34.000Z</published>
+    <updated>2019-02-27T01:18:11.437Z</updated>
     
-    <content type="html"><![CDATA[<p>我想了想我这在家休养的几天，我有了什么样的条件呢：封闭的小空间，网络，外卖。</p><p>这三样，恰好是现在人成为废人的关键三要素。</p><p>这三样给我营造出一种极为安逸的环境，使得我甚至不想走出去。</p><p>唉，</p><p>我真的会成为一个废人么，</p><p>不，</p><p>我不想，</p><p>我还有我的梦想要实现呢！</p><p>走出去！</p><p>透透气！</p><p>2018-04-16</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="k-近邻算法（kNN"><a href="#k-近邻算法（kNN" class="headerlink" title="k-近邻算法（kNN)"></a>k-近邻算法（kNN)</h1><p>优点：精度高、对异常值不敏感、无数据输入假定。</p><p>缺点：计算复杂度高、空间复杂度高。</p><p>适用数据范围：数值型和标称型。 </p><p>工作原理：存在一个样本数据集合，也称作训练样本集，并且样本集中每个数据都有标签，即知道样本集中每一数据与所属分类的对应关系。输入没有标签的新数据后，将新数据的每个特征与样本集中数据对应的特征进行比较，然后算法提取样本集中特征最相似数据的分类标签。一般来说，我们只选择样本数据集中前k个最相似数据，这就是k-近邻算法k的出处，通常k是不大于20的整数。最后，选取k个最相似数据中出现次数最多的分类，作为新数据的分类。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDataSet</span><span class="params">()</span>:</span></span><br><span class="line">    group = array([[<span class="number">1.0</span>, <span class="number">1.1</span>], [<span class="number">1.0</span>, <span class="number">1.0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0.1</span>]])</span><br><span class="line">    labels = [<span class="string">'A'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'B'</span>]</span><br><span class="line">    <span class="keyword">return</span> group, labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span><span class="params">(inX,dataSet,labels,k)</span>:</span>                  <span class="comment">#inX是你要输入的要分类的“坐标”，dataSet是上面createDataSet的array，就是已经有的，分类过的坐标，label是相应分类的标签，k是KNN，k近邻里面的k</span></span><br><span class="line">    dataSetSize=dataSet.shape[<span class="number">0</span>]                     <span class="comment">#dataSetSize是sataSet的行数，用上面的举例就是4行</span></span><br><span class="line">    diffMat=tile(inX,(dataSetSize,<span class="number">1</span>))-dataSet         <span class="comment">#前面用tile，把一行inX变成4行一模一样的（tile有重复的功能，dataSetSize是重复4遍，后面的1保证重复完了是4行，而不是一行里有四个一样的），然后再减去dataSet，是为了求两点的距离，先要坐标相减，这个就是坐标相减</span></span><br><span class="line">    sqDiffMat=diffMat**<span class="number">2</span>                              <span class="comment">#上一行得到了坐标相减，然后这里要(x1-x2)^2，要求乘方</span></span><br><span class="line">    sqDistances=sqDiffMat.sum(axis=<span class="number">1</span>)                 <span class="comment">#axis=1是列相加，，这样得到了(x1-x2)^2+(y1-y2)^2</span></span><br><span class="line">    distances=sqDistances**<span class="number">0.5</span>                        <span class="comment">#开根号，这个之后才是距离</span></span><br><span class="line">    sortedDistIndicies=distances.argsort()            <span class="comment">#argsort是排序，将元素按照由小到大的顺序返回下标，比如([3,1,2]),它返回的就是([1,2,0])</span></span><br><span class="line">    classCount=&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        voteIlabel=labels[sortedDistIndicies[i]]</span><br><span class="line">        classCount[voteIlabel]=classCount.get(voteIlabel,<span class="number">0</span>)+<span class="number">1</span>            <span class="comment">#get是取字典里的元素，如果之前这个voteIlabel是有的，那么就返回字典里这个voteIlabel里的值，如果没有就返回0（后面写的），这行代码的意思就是算离目标点距离最近的k个点的类别，这个点是哪个类别哪个类别就加1</span></span><br><span class="line">    soredClassCount=sorted(classCount.iteritems(),key=operator.itemgetter(<span class="number">1</span>),reverse=<span class="keyword">True</span>)         <span class="comment">#key=operator.itemgetter(1)的意思是按照字典里的第一个排序，&#123;A:1,B:2&#125;,要按照第1个（AB是第0个），即‘1’‘2’排序。reverse=True是降序排序</span></span><br><span class="line">    <span class="keyword">return</span> soredClassCount[<span class="number">0</span>][<span class="number">0</span>]             <span class="comment">#返回类别最多的类别</span></span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;我想了想我这在家休养的几天，我有了什么样的条件呢：封闭的小空间，网络，外卖。&lt;/p&gt;
-&lt;p&gt;这三样，恰好是现在人成为废人的关键三要素。&lt;/p&gt;
-&lt;p&gt;这三样给我营造出一种极为安逸的环境，使得我甚至不想走出去。&lt;/p&gt;
-&lt;p&gt;唉，&lt;/p&gt;
-&lt;p&gt;我真的会成为一个废人么，&lt;/p
+        &lt;h1 id=&quot;k-近邻算法（kNN&quot;&gt;&lt;a href=&quot;#k-近邻算法（kNN&quot; class=&quot;headerlink&quot; title=&quot;k-近邻算法（kNN)&quot;&gt;&lt;/a&gt;k-近邻算法（kNN)&lt;/h1&gt;&lt;p&gt;优点：精度高、对异常值不敏感、无数据输入假定。&lt;/p&gt;
+&lt;p&gt;缺点：计算
       
     
     </summary>
     
     
-      <category term="反思" scheme="http://yoursite.com/tags/%E5%8F%8D%E6%80%9D/"/>
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
-      <category term="瞎写" scheme="http://yoursite.com/tags/%E7%9E%8E%E5%86%99/"/>
+      <category term="kNN" scheme="http://yoursite.com/tags/kNN/"/>
+    
+      <category term="ML" scheme="http://yoursite.com/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>anaconda指令学习</title>
+    <link href="http://yoursite.com/2019/02/26/anaconda%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2019/02/26/anaconda指令学习/</id>
+    <published>2019-02-26T14:12:38.000Z</published>
+    <updated>2019-02-27T01:17:59.650Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="anaconda常规操作指令"><a href="#anaconda常规操作指令" class="headerlink" title="anaconda常规操作指令"></a>anaconda常规操作指令</h1><p>1.在cmd中输入<code>conda list</code> 用于查看已有的包</p><p>2.输入 <code>conda upgrade --all</code> 更新所有包</p><h2 id="管理包："><a href="#管理包：" class="headerlink" title="管理包："></a>管理包：</h2><ol><li>安装包 <code>conda install package_name</code></li><li>安装多个包 <code>conda install numpy pandas  #安装numpy和pandas包</code></li><li>卸载包 <code>conda remove package_names</code></li><li>更新包 <code>conda update package_names</code></li><li>列出已安装的包 <code>conda list</code></li><li>查询包 <code>conda search package_names</code></li></ol><h2 id="管理环境："><a href="#管理环境：" class="headerlink" title="管理环境："></a>管理环境：</h2><p>0.安装nb_conda用于notebook自动关联nb_conda的环境</p><p><code>conda install nb_conda</code></p><p>1.创建环境 <code>conda create -n env_name package_names</code> 例如：</p><p><code>conda create -n py3 pandas</code> 创建一个名为py3的环境并在其中安装pandas</p><p>2.创建环境时可以指定python版本 例如</p><p><code>conda create -n py3 python=3.6</code></p><p>3.进入环境 win<code>上activate env_name</code></p><p> OSX/Linux上 <code>source activate env_name</code></p><p>4.离开环境 win <code>deactivate</code></p><p>OSX/Linux <code>source deactivate</code></p><p>5.共享环境 <code>conda env export &gt; environment.yaml</code></p><p>在 GitHub 上共享代码时，最好同样创建环境文件并将其包括在代码库中。这能让其他人更轻松地安装你的代码的所有依赖项。</p><p>导出的环境文件，在其他电脑环境中如何使用呢？</p><p>首先在conda中进入你的环境，比如activate py3</p><p>然后在使用以下命令更新你的环境：</p><p><code>#其中-f表示你要导出文件在本地的路径，所以/path/to/environment.yml要换成你本地的实际路径conda env update -f=/path/to/environment.yml</code></p><p>对于不使用 conda 的用户，我通常还会使用 <code>pip freeze &gt; environment.txt</code> 将一个 txt文件导出并包括在其中。然后在自己的电脑上进入python命令环境，然后运行</p><p> <code>pip install -r /path/requirements.txt</code> 就可以安装项目需要的包</p><p>6.列出环境 <code>conda env list</code></p><p>7.删除环境 <code>conda env remove -n env_name</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;anaconda常规操作指令&quot;&gt;&lt;a href=&quot;#anaconda常规操作指令&quot; class=&quot;headerlink&quot; title=&quot;anaconda常规操作指令&quot;&gt;&lt;/a&gt;anaconda常规操作指令&lt;/h1&gt;&lt;p&gt;1.在cmd中输入&lt;code&gt;conda l
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="anaconda" scheme="http://yoursite.com/tags/anaconda/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jupyter notebook学习</title>
+    <link href="http://yoursite.com/2019/02/26/jupyter-notebook%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2019/02/26/jupyter-notebook学习/</id>
+    <published>2019-02-26T14:10:15.000Z</published>
+    <updated>2019-02-27T01:18:06.147Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.安装：</p><h3 id="最简单的方法，安装anaconda会附带Jupyter-notebook-能够在默认环境下使用notebook。"><a href="#最简单的方法，安装anaconda会附带Jupyter-notebook-能够在默认环境下使用notebook。" class="headerlink" title="最简单的方法，安装anaconda会附带Jupyter notebook 能够在默认环境下使用notebook。"></a>最简单的方法，安装anaconda会附带Jupyter notebook 能够在默认环境下使用notebook。</h3><p>conda环境下安装可以直接输入 <code>conda install jupyter notebook</code></p><p>也可以通过python shell 的pip来安装 <code>pip install jupyter notebook</code></p><h3 id="2-启动"><a href="#2-启动" class="headerlink" title="2.启动"></a>2.启动</h3><p>终端输入 <code>jupyter notebook</code> 即可</p><p>启动后会在浏览器中出现一个地址为<a href="http://localhost:8888的窗口，8888是服务器默认端口，若是同时启动了另外一个会显示8889连接新服务器，以此类推。" target="_blank" rel="noopener">http://localhost:8888的窗口，8888是服务器默认端口，若是同时启动了另外一个会显示8889连接新服务器，以此类推。</a></p><h3 id="3-使用"><a href="#3-使用" class="headerlink" title="3.使用"></a>3.使用</h3><h4 id="1-确保在anaconda终端中安装了以下包"><a href="#1-确保在anaconda终端中安装了以下包" class="headerlink" title="1.确保在anaconda终端中安装了以下包"></a>1.确保在anaconda终端中安装了以下包</h4><p>1.安装环境自动关联包 <code>conda install nb_conda</code> </p><p>然后输入 <code>conda env list</code> 列出所创建的所有环境</p><p>进入后假如没有列出自己创的环境，点击conda标签，然后安装在下面安装ipykernel包</p><p>2.在anaconda终端安装代码自动补全包 <code>conda install pyreadline</code> </p><h4 id="4-显示"><a href="#4-显示" class="headerlink" title="4.显示"></a>4.显示</h4><p>顶部的3个选项卡是：<em>Files</em>（文件）、<em>Running</em>（运行）和 <em>Cluster</em>（集群）。</p><p><em>Files</em>（文件）显示当前“notebook工作文件夹”中的所有文件和文件夹。</p><p>点击 <em>Running</em>（运行）选项卡会列出所有正在运行的 notebook。可以在该选项卡中管理这些 notebook。</p><p><em>Clusters一般不会用到。因为</em>过去在 <em>Clusters</em>（集群）中创建多个用于并行计算的内核。现在，这项工作已经由 <a href="https://link.zhihu.com/?target=https%3A//ipyparallel.readthedocs.io/en/latest/intro.html" target="_blank" rel="noopener">ipyparallel</a> 接管。</p><h5 id="5-如何创建一个新的notebook？"><a href="#5-如何创建一个新的notebook？" class="headerlink" title="5.如何创建一个新的notebook？"></a>5.如何创建一个新的notebook？</h5><p>点击new，选择notebook下自己创的环境</p><p>显示出新的页面，单元格就是编写和运行代码的地方，以后便可在这里写数据分析代码。</p><p>例如 ：输入 <code>print hello world！</code> （快捷键ctrl+enter为运行），然后在该单元格下就显示运行结果，前面的 I n [1]可以让人知道运行的代码和运行的顺序。</p><p>按 + 创建新的单元格。</p><h4 id="6-关于自动补全"><a href="#6-关于自动补全" class="headerlink" title="6.关于自动补全"></a>6.关于自动补全</h4><p>定义一个变量，在后面输入相关字母摁TAB即可找到，提高代码效率，但是必须<strong>要把定义该变量的cell运行后，notebook才能识别他</strong> </p><h4 id="7-关闭"><a href="#7-关闭" class="headerlink" title="7.关闭"></a>7.关闭</h4><p>在终端中摁两次CTRL + C 一定要记住保存了工作！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1.安装：&lt;/p&gt;
+&lt;h3 id=&quot;最简单的方法，安装anaconda会附带Jupyter-notebook-能够在默认环境下使用notebook。&quot;&gt;&lt;a href=&quot;#最简单的方法，安装anaconda会附带Jupyter-notebook-能够在默认环境下使用note
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="anaconda" scheme="http://yoursite.com/tags/anaconda/"/>
+    
+      <category term="jupyter notebook" scheme="http://yoursite.com/tags/jupyter-notebook/"/>
     
   </entry>
   
